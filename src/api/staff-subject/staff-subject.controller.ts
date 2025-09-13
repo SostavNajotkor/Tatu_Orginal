@@ -10,36 +10,41 @@ import {
 import { StaffSubjectService } from './staff-subject.service';
 import { CreateStaffSubjectDto } from './dto/create-staff-subject.dto';
 import { UpdateStaffSubjectDto } from './dto/update-staff-subject.dto';
+import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import { ISuccess } from 'src/infrastructure/response/success.interface';
 
-@Controller('staff-subject')
+@ApiTags('StaffSubject API')
+@Controller('staff-subjects')
 export class StaffSubjectController {
   constructor(private readonly staffSubjectService: StaffSubjectService) {}
 
   @Post()
-  create(@Body() createStaffSubjectDto: CreateStaffSubjectDto) {
-    return this.staffSubjectService.create(createStaffSubjectDto);
+  @ApiCreatedResponse({ description: 'StaffSubject created' })
+  create(@Body() dto: CreateStaffSubjectDto): Promise<ISuccess> {
+    return this.staffSubjectService.create(dto);
   }
 
   @Get()
-  findAll() {
+  @ApiOkResponse({ description: 'Get all StaffSubjects' })
+  findAll(): Promise<ISuccess> {
     return this.staffSubjectService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.staffSubjectService.findOne(+id);
+  @ApiOkResponse({ description: 'Get StaffSubject by id' })
+  findOne(@Param('id') id: string): Promise<ISuccess> {
+    return this.staffSubjectService.findOne(id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateStaffSubjectDto: UpdateStaffSubjectDto,
-  ) {
-    return this.staffSubjectService.update(+id, updateStaffSubjectDto);
+  @ApiOkResponse({ description: 'Update StaffSubject' })
+  update(@Param('id') id: string, @Body() dto: UpdateStaffSubjectDto): Promise<ISuccess> {
+    return this.staffSubjectService.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.staffSubjectService.remove(+id);
+  @ApiOkResponse({ description: 'Delete StaffSubject' })
+  remove(@Param('id') id: string): Promise<ISuccess> {
+    return this.staffSubjectService.remove(id);
   }
 }

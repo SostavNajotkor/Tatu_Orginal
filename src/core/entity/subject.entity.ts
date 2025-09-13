@@ -22,8 +22,8 @@ export class Subject extends BaseEntity {
   @OneToMany(() => TestGroup, (tg) => tg.subject)
   TestGroups: TestGroup[];
 
-  // @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.subjectId)
-  // ssSubject: StaffSubject[];
+  @OneToMany(() => StaffSubject, (sb_sf) => sb_sf.subjectId)
+  staffSubjectId: StaffSubject[];
 
   // fazlidin aka ulab bolib ochib qoyin
 }

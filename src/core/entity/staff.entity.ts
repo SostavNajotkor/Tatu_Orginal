@@ -31,12 +31,12 @@ export class Staff extends BaseEntity {
 	@Column({ type: 'varchar' })
 	telegramUsername: string;
 
-	// @OneToMany(() => StaffGroup, (staffGroup) => staffGroup.staffId)
-	// staffGroup: StaffGroup[];
+	@OneToMany(() => StaffGroup, (staffGroup) => staffGroup.staffId)
+	staffGroup: StaffGroup[];
 
-	// @OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
-	// staffRole: StaffRole[];
+	@OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
+	staffRole: StaffRole[];
 
-	// @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.staffId)
-	// staffSubject: StaffSubject[];
+	@OneToMany(() => StaffSubject, (staf_sb) => staf_sb.subjectId)
+	staffSubjectId: StaffSubject[];
 }

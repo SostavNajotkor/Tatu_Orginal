@@ -6,11 +6,11 @@ import { BaseEntity } from "src/common/database/base.entity";
 @Entity('staff-role')
 export class StaffRole extends BaseEntity {
 
-	// @ManyToOne(() => Staff, (staff) => staff.staffRole, {
-	// 	onDelete: 'CASCADE',
-	// 	onUpdate: 'CASCADE'
-	// })
-	// staffId: Staff;
+	@ManyToOne(() => Staff, (staff) => staff.staffRole, {
+		onDelete: 'CASCADE',
+		onUpdate: 'CASCADE'
+	})
+	staffId: Staff;
 
 	@ManyToOne(() => Role, (role) => role.roleStaff, {
 		onDelete: 'CASCADE',

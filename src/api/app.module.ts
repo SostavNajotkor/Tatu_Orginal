@@ -16,6 +16,7 @@ import { GroupModule } from './group/group.module';
 import { StaffGroupModule } from './staff-group/staff-group.module';
 import { StaffRoleModule } from './staff-role/staff-role.module';
 import { RoleModule } from './role/role.module';
+import { StaffModule } from './staff/staff.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { RoleModule } from './role/role.module';
     StaffGroupModule,
     StaffRoleModule,
     RoleModule,
+    StaffModule
   ],
 })
 export class AppModule {}
