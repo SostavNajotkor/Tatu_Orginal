@@ -7,9 +7,9 @@ import { Staff } from 'src/core/entity/staff.entity';
 import { Role } from 'src/core/entity/role.entity';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([StaffRole,Staff,Role])],
+  imports: [TypeOrmModule.forFeature([StaffRole, Staff, Role])],
   controllers: [StaffRoleController],
   providers: [StaffRoleService],
-  exports:[StaffRoleService]
+  exports: [StaffRoleService],
 })
 export class StaffRoleModule {}

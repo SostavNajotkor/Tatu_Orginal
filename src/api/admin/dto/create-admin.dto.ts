@@ -26,7 +26,7 @@ export class CreateAdminDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
-  
+
   @ApiProperty({
     type: 'string',
     description: 'User of phone number',

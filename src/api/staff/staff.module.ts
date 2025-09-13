@@ -10,7 +10,9 @@ import { StaffSubject } from 'src/core/entity/staff-subject.entity';
 import { Subject } from 'src/core/entity/subject.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Staff, Role, StaffRole, StaffSubject, Subject])],
+  imports: [
+    TypeOrmModule.forFeature([Staff, Role, StaffRole, StaffSubject, Subject]),
+  ],
   controllers: [StaffController],
   providers: [StaffService],
   exports: [StaffService],

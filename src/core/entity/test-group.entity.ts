@@ -32,8 +32,8 @@ export class TestGroup extends BaseEntity {
   question: Question[];
 
   @OneToOne(() => TestResult, (testResult) => testResult.testGroupId, {
-  	cascade: true,
-  	eager: false
+    cascade: true,
+    eager: false,
   })
   testRes: TestResult;
 }

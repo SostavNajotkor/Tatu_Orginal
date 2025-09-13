@@ -7,10 +7,10 @@ export class AdminEntity extends BaseEntity {
   @Column({ type: 'varchar', unique: true })
   username: string;
 
-  @Column({ type: 'varchar', unique: true ,default:''})
+  @Column({ type: 'varchar', unique: true, default: '' })
   email: string;
 
-  @Column({ type: 'varchar', unique: true, default:'' })
+  @Column({ type: 'varchar', unique: true, default: '' })
   phone: string;
 
   @Column({ type: 'varchar' })
@@ -27,6 +27,4 @@ export class AdminEntity extends BaseEntity {
 
   @Column({ type: 'enum', enum: Roles, default: Roles.ADMIN })
   role: Roles;
-
-  
 }

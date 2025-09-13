@@ -7,9 +7,9 @@ import { Staff } from 'src/core/entity/staff.entity';
 import { Group } from 'src/core/entity/group.entity';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([StaffGroup,Staff,Group])],
+  imports: [TypeOrmModule.forFeature([StaffGroup, Staff, Group])],
   controllers: [StaffGroupController],
   providers: [StaffGroupService],
-  exports:[StaffGroupService]
+  exports: [StaffGroupService],
 })
 export class StaffGroupModule {}

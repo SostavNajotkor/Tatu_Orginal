@@ -43,8 +43,8 @@ export class StaffGroupService {
     }
 
     const sg = this.staffGroupRepo.create({
-      staffId:staff,
-      groupId:group,
+      staffId: staff,
+      groupId: group,
     });
 
     const saved = await this.staffGroupRepo.save(sg);

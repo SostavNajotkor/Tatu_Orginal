@@ -19,5 +19,5 @@ export class CreateSubjectDto {
   })
   @IsOptional()
   @IsString()
-  image?: string;
+  imageUrl: string;
 }

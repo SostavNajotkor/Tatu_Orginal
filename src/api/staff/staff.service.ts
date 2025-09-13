@@ -25,13 +25,18 @@ export class StaffService {
   constructor(
     @InjectRepository(Staff) private readonly staffRepo: Repository<Staff>,
     @InjectRepository(Role) private readonly roleRepo: Repository<Role>,
-    @InjectRepository(StaffRole) private readonly staffRoleRepo: Repository<StaffRole>,
-    @InjectRepository(Subject) private readonly subjectRepo: Repository<Subject>,
-    @InjectRepository(StaffSubject) private readonly staffSubjectRepo: Repository<StaffSubject>,
+    @InjectRepository(StaffRole)
+    private readonly staffRoleRepo: Repository<StaffRole>,
+    @InjectRepository(Subject)
+    private readonly subjectRepo: Repository<Subject>,
+    @InjectRepository(StaffSubject)
+    private readonly staffSubjectRepo: Repository<StaffSubject>,
   ) {}
 
   async create(dto: CreateStaffDto): Promise<ISuccess> {
-    const exists = await this.staffRepo.findOne({ where: { email: dto.email } });
+    const exists = await this.staffRepo.findOne({
+      where: { email: dto.email },
+    });
     if (exists) throw new ConflictException('Email already in use');
 
     const hashed = await bcrypt.hash(dto.password, 10);
@@ -48,7 +53,12 @@ export class StaffService {
       return successRes(self);
     }
     const all = await this.staffRepo.find({
-      relations: ['staffRole', 'staffRole.role', 'staffSubjectId', 'staffSubjectId.subject'],
+      relations: [
+        'staffRole',
+        'staffRole.role',
+        'staffSubjectId',
+        'staffSubjectId.subject',
+      ],
     });
     return successRes(all);
   }
@@ -59,7 +69,12 @@ export class StaffService {
     }
     const staff = await this.staffRepo.findOne({
       where: { id },
-      relations: ['staffRole', 'staffRole.role', 'staffSubjectId', 'staffSubjectId.subject'],
+      relations: [
+        'staffRole',
+        'staffRole.role',
+        'staffSubjectId',
+        'staffSubjectId.subject',
+      ],
     });
     if (!staff) throw new NotFoundException('Staff not found');
     return successRes(staff);

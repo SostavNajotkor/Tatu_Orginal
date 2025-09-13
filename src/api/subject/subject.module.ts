@@ -5,12 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Subject } from 'src/core/entity/subject.entity';
 import { TestGroup } from 'src/core/entity/test-group.entity';
 import { StaffSubject } from 'src/core/entity/staff-subject.entity';
-
+import { FileService } from 'src/infrastructure/file/FileService';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Subject, TestGroup, StaffSubject])],
   controllers: [SubjectController],
-  providers: [SubjectService],
+  providers: [SubjectService, FileService],
   exports: [SubjectService],
 })
 export class SubjectModule {}
