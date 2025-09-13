@@ -19,8 +19,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning familiyasi',
-    example: 'Karimov',
+    description: 'xodimning familiyasi',
+    example: 'Abduraximov',
   })
   @IsString()
   @IsNotEmpty()
@@ -28,8 +28,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning profil rasmi (URL manzili)',
-    example: 'https://example.com/images/avatar.png',
+    description: 'xodimning profil rasmi Urli',
+    example: 'https://kun.uz/avatar.png',
   })
   @IsString()
   @IsNotEmpty()
@@ -37,8 +37,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning telefon raqami',
-    example: '+998901234567',
+    description: 'xodimning telefon raqami',
+    example: '+998900004505',
   })
   @IsPhoneNumber()
   @IsString()
@@ -47,8 +47,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning login nomi',
-    example: 'fazliddin14',
+    description: 'xodimning loginni',
+    example: 'fazliddin123',
   })
   @IsString()
   @IsNotEmpty()
@@ -56,7 +56,7 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning kuchli paroli',
+    description: 'xodimning paroli',
     example: 'Fazliddin123!',
   })
   @IsStrongPassword()
@@ -66,8 +66,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning elektron pochtasi',
-    example: 'fazliddin@example.com',
+    description: 'xodimning elektron pochtasi',
+    example: 'fazliddin@gmail.com',
   })
   @IsEmail()
   @IsNotEmpty()
@@ -75,8 +75,8 @@ export class CreateStaffDto {
 
   @ApiProperty({
     type: String,
-    description: 'Xodimning Telegram foydalanuvchi nomi',
-    example: '@shuhrat_dev',
+    description: 'xodimning Tg niki',
+    example: '@Fazliddin_Abduraximov',
   })
   @IsString()
   @IsNotEmpty()
