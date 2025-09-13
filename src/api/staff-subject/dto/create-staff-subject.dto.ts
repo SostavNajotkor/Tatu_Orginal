@@ -1,11 +1,22 @@
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class CreateStaffSubjectDto {
-	@IsNumber()
-	@IsNotEmpty()
-	staffId: number;
+  @ApiProperty({
+    type: String,
+    description: 'Xodimning UUID ID raqami',
+    example: 'a3f5c0b2-1d4e-4f9d-9b8e-6a2c7e123456',
+  })
+  @IsUUID()
+  @IsNotEmpty()
+  staffId: string;
 
-	@IsNumber()
-	@IsNotEmpty()
-	subjectId: number;
+  @ApiProperty({
+    type: String,
+    description: 'Fan (subject) UUID ID raqami',
+    example: 'b7e8d9f0-2c3d-4a1b-8f6e-9c0d1b234567',
+  })
+  @IsUUID()
+  @IsNotEmpty()
+  subjectId: string;
 }

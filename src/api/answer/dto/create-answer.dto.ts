@@ -1,21 +1,31 @@
-
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateAnswerDto {
-  @ApiProperty({ example: '4', description: 'Javob variantlari' })
+  @ApiProperty({
+    type: String,
+    description: 'Javob varianti matni',
+    example: '4',
+  })
   @IsString()
   @IsNotEmpty()
   answer: string;
 
-  @ApiProperty({ example: true, description: 'Togri javobmi?' })
+  @ApiProperty({
+    type: Boolean,
+    description: 'Bu javob togri javobmi?',
+    example: true,
+  })
   @IsBoolean()
   @IsNotEmpty()
   isTrue: boolean;
 
-  @ApiProperty({ example: 'uuid-question-id', description: 'QUESTION ID' })
-  @IsString()
+  @ApiProperty({
+    type: String,
+    description: 'Savolning UUID ID raqami',
+    example: 'a3f5c0b2-1d4e-4f9d-9b8e-6a2c7e123456',
+  })
+  @IsUUID()
   @IsNotEmpty()
   questionId: string;
-
 }

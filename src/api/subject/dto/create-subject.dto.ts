@@ -4,19 +4,20 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateSubjectDto {
   @ApiProperty({
     type: String,
-    description: 'fan nomi beriladi',
-    example: 'Matematika...',
+    description: 'Fan nomi (sarlavhasi)',
+    example: 'Matematika',
   })
   @IsString()
   @IsNotEmpty()
   title: string;
 
   @ApiProperty({
-    description: 'fan rasmi qopyiladi',
+    type: String,
+    description: 'Fan rasmi (URL yoki fayl nomi)',
     example: 'matematika.png',
     required: false,
   })
   @IsOptional()
   @IsString()
-  image: string;
+  image?: string;
 }
