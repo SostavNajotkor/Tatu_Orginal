@@ -7,8 +7,8 @@ type ConfigType = {
   DB_SYNC: boolean;
   ADMIN_USERNAME: string;
   ADMIN_PASSWORD: string;
-  ADMIN_EMAIL:string;
-  ADMIN_PHONE:string;
+  ADMIN_EMAIL: string;
+  ADMIN_PHONE: string;
   TOKEN: {
     ACCESS_KEY: string;
     ACCESS_TIME: string;
@@ -28,8 +28,8 @@ export const config: ConfigType = {
   DB_SYNC: String(process.env.NODE_ENV) === 'dev' ? true : false,
   ADMIN_USERNAME: String(process.env.ADMIN_USERNAME),
   ADMIN_PASSWORD: String(process.env.ADMIN_PASSWORD),
-  ADMIN_EMAIL:String(process.env.ADMIN_EMAIL),
-  ADMIN_PHONE:String(process.env.ADMIN_PHONE),
+  ADMIN_EMAIL: String(process.env.ADMIN_EMAIL),
+  ADMIN_PHONE: String(process.env.ADMIN_PHONE),
   TOKEN: {
     ACCESS_KEY: String(process.env.ACCESS_TOKEN_KEY),
     ACCESS_TIME: String(process.env.ACCESS_TOKEN_TIME),

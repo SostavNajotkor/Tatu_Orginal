@@ -1,42 +1,41 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { StaffGroup } from "./staff-group.entity";
-import { StaffRole } from "./staff-role.entity";
-import { StaffSubject } from "./staff-subject.entity";
-import { BaseEntity } from "src/common/database/base.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { StaffGroup } from './staff-group.entity';
+import { StaffRole } from './staff-role.entity';
+import { StaffSubject } from './staff-subject.entity';
+import { BaseEntity } from 'src/common/database/base.entity';
 
 @Entity('staff')
 export class Staff extends BaseEntity {
+  @Column({ type: 'varchar' })
+  firstName: string;
 
-	@Column({ type: 'varchar' })
-	firstName: string;
+  @Column({ type: 'varchar' })
+  lastName: string;
 
-	@Column({ type: 'varchar' })
-	lastName: string;
+  @Column({ type: 'text' })
+  image: string;
 
-	@Column({ type: 'text' })
-	image: string;
+  @Column({ type: 'varchar' })
+  phoneNumber: string;
 
-	@Column({ type: 'varchar' })
-	phoneNumber: string;
+  @Column({ type: 'varchar' })
+  login: string;
 
-	@Column({ type: 'varchar' })
-	login: string;
+  @Column({ type: 'varchar' })
+  hashedPassword: string;
 
-	@Column({ type: 'varchar' })
-	hashedPassword: string;
+  @Column({ type: 'varchar', unique: true })
+  email: string;
 
-	@Column({ type: 'varchar', unique: true })
-	email: string;
+  @Column({ type: 'varchar' })
+  telegramUsername: string;
 
-	@Column({ type: 'varchar' })
-	telegramUsername: string;
+  @OneToMany(() => StaffGroup, (staffGroup) => staffGroup.staffId)
+  staffGroup: StaffGroup[];
 
-	// @OneToMany(() => StaffGroup, (staffGroup) => staffGroup.staffId)
-	// staffGroup: StaffGroup[];
+  @OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
+  staffRole: StaffRole[];
 
-	// @OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
-	// staffRole: StaffRole[];
-
-	// @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.staffId)
-	// staffSubject: StaffSubject[];
+  @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.staffId)
+  staffSubject: StaffSubject[];
 }

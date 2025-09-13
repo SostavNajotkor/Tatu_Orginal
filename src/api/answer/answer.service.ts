@@ -9,7 +9,6 @@ import { Question } from 'src/core/entity/question.entity';
 import { ISuccess } from 'src/infrastructure/response/success.interface';
 import { successRes } from 'src/infrastructure/response/success';
 
-
 @Injectable()
 export class AnswerService extends BaseService<
   CreateAnswerDto,

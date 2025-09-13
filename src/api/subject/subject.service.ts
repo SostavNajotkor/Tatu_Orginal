@@ -8,7 +8,6 @@ import { Subject } from 'src/core/entity/subject.entity';
 import { ISuccess } from 'src/infrastructure/response/success.interface';
 import { successRes } from 'src/infrastructure/response/success';
 
-
 @Injectable()
 export class SubjectService extends BaseService<
   CreateSubjectDto,

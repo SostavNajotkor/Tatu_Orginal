@@ -13,7 +13,7 @@ export class Subject extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type:'varchar', unique: true })
+  @Column({ type: 'varchar', unique: true })
   title: string;
 
   @Column({ type: 'text' })
@@ -22,8 +22,8 @@ export class Subject extends BaseEntity {
   @OneToMany(() => TestGroup, (tg) => tg.subject)
   TestGroups: TestGroup[];
 
-  // @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.subjectId)
-  // ssSubject: StaffSubject[];
+  @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.subjectId)
+  ssSubject: StaffSubject[];
 
   // fazlidin aka ulab bolib ochib qoyin
 }

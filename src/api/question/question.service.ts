@@ -10,7 +10,6 @@ import { TestGroup } from 'src/core/entity/test-group.entity';
 import { ISuccess } from 'src/infrastructure/response/success.interface';
 import { successRes } from 'src/infrastructure/response/success';
 
-
 @Injectable()
 export class QuestionService extends BaseService<
   CreateQuestionDto,
