@@ -17,10 +17,13 @@ export class RolesGuard implements CanActivate {
 			ROLES_KEY,
 			[context.getHandler(), context.getClass()],
 		);
+
 		const req = context.switchToHttp().getRequest();
+
 		if (!req.user) {
 			throw new ForbiddenException('User not authenticated');
 		}
+
 		if (
 			requiredRoles.includes(req.user.role) ||
 			(requiredRoles.includes('ID') && req.user?.id === req.params.id)

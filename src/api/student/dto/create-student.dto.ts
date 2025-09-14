@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
 	IsEnum,
 	IsNotEmpty,
-	IsNumber,
 	IsPhoneNumber,
 	IsString,
 	IsStrongPassword,
@@ -28,14 +27,14 @@ export class CreateStudentDto {
 	@IsNotEmpty()
 	lastName: string;
 
-	@ApiProperty({
-		type: 'string',
-		description: 'image for student',
-		example: 'eshmat.jpg',
-	})
-	@IsString()
-	@IsNotEmpty()
-	image: string;
+	// @ApiProperty({
+	// 	type: 'string',
+	// 	description: 'image for student',
+	// 	example: 'eshmat.jpg',
+	// })
+	// @IsString()
+	// @IsNotEmpty()
+	// image: string;
 
 	@ApiProperty({
 		type: 'string',
@@ -76,11 +75,11 @@ export class CreateStudentDto {
 	role: Roles;
 
 	@ApiProperty({
-		type: 'number',
+		type: 'string',
 		description: 'group ID that student belongs to',
 		example: 1,
 	})
-	@IsNumber()
+	@IsString()
 	@IsNotEmpty()
-	groupId: number;
+	groupId: string;
 }

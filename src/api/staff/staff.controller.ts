@@ -31,11 +31,11 @@ import { Roles } from 'src/common/enum';
 @ApiTags('Staff Api')
 @ApiBearerAuth()
 @Controller('staff')
-@UseGuards(AuthGuard/* , RolesGuard */)
+@UseGuards(AuthGuard, RolesGuard)
 export class StaffController {
 	constructor(private readonly staffService: StaffService) { }
 
-	// @AccessRoles(Roles.SUPERADMIN, Roles.ADMIN)
+	@AccessRoles(Roles.SUPERADMIN, Roles.ADMIN)
 	@Post()
 	@ApiOperation({ summary: 'Yangi staff yaratish' })
 	@ApiCreatedResponse({ description: 'Staff successfully created' })

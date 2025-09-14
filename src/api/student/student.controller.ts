@@ -22,6 +22,10 @@ import express from 'express';
 import { AuthGuard } from 'src/common/guard/auth.guard';
 import { RolesGuard } from 'src/common/guard/role.guard';
 import { AccessRoles } from 'src/common/decorator/roles.decorator';
+import { diskStorage } from 'multer';
+import * as path from 'path';
+import { extname } from 'path';
+import * as fs from 'fs';
 
 @ApiTags('Student')
 @Controller('students')
@@ -32,9 +36,43 @@ export class StudentController {
 	@ApiBearerAuth()
 	@AccessRoles(Roles.ADMIN, Roles.SUPERADMIN)
 	@UseGuards(AuthGuard, RolesGuard)
-	@UseInterceptors(FileInterceptor('image'))
+	@UseInterceptors(
+		FileInterceptor('image', {
+			storage: diskStorage({
+				destination: (req, file, cb) => {
+					const uploadPath = path.join(process.cwd(), 'uploads');
+					if (!fs.existsSync(uploadPath)) {
+						fs.mkdirSync(uploadPath, { recursive: true });
+					}
+					cb(null, uploadPath);
+				},
+				filename: (req, file, cb) => {
+					const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+					const ext = extname(file.originalname);
+					cb(null, uniqueSuffix + ext);
+				},
+			}),
+		}),
+	)
 	@ApiConsumes('multipart/form-data')
-	@ApiBody({ type: CreateStudentDto })
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				firstName: { type: 'string' },
+				lastName: { type: 'string' },
+				username: { type: 'string' },
+				password: { type: 'string' },
+				role: { type: 'string', enum: Object.values(Roles) },
+				image: {
+					type: 'string',
+					format: 'binary',
+				},
+				phoneNumber: { type: 'string' },
+				groupId: { type: 'string' },
+			},
+		},
+	})
 	async createStudent(
 		@Body() dto: CreateStudentDto,
 		@UploadedFile() file: Express.Multer.File,
@@ -70,6 +108,20 @@ export class StudentController {
 	@UseGuards(AuthGuard)
 	@UseInterceptors(FileInterceptor('image'))
 	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				username: { type: 'string' },
+				password: { type: 'string' },
+				role: { type: 'string', enum: Object.values(Roles) },
+				image: {
+					type: 'string',
+					format: 'binary',
+				},
+			},
+		},
+	})
 	async updateStudent(
 		@Param('id') id: string,
 		@Body() dto: UpdateStudentDto,
@@ -87,3 +139,4 @@ export class StudentController {
 		return this.studentService.remove(id);
 	}
 }
+  

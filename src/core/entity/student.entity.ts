@@ -19,7 +19,7 @@ export class Student extends BaseEntity {
   @Column({ type: 'varchar' })
   phoneNumber: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', unique: true })
   username: string;
 
   @Column({ type: 'varchar' })

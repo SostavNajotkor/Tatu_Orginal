@@ -19,6 +19,7 @@ import { successRes } from 'src/infrastructure/response/success';
 import { Roles } from 'src/common/enum';
 import { Response } from 'express';
 import { IToken } from 'src/infrastructure/token/interface';
+import path from 'path';
 
 @Injectable()
 export class StudentService extends BaseService<
@@ -39,7 +40,7 @@ export class StudentService extends BaseService<
 		createStudentDto: CreateStudentDto,
 		file: Express.Multer.File,
 	): Promise<ISuccess> {
-		const image = await this.fileService.create(file);
+		// const image = await this.fileService.create(file);
 		const { username, password } = createStudentDto;
 		const existsUsername = await this.studentRepo.findOne({
 			where: { username },
@@ -57,7 +58,7 @@ export class StudentService extends BaseService<
 			...createStudentDto,
 			username,
 			hashedPassword,
-			image,
+			image: file.filename ?? null,
 		});
 
 		await this.studentRepo.save(newStudent);
@@ -97,9 +98,13 @@ export class StudentService extends BaseService<
 		}
 		let imageUrl = student.image;
 		if (image) {
-			if (await this.fileService.exist(student.image)) {
-				await this.fileService.delete(student.image);
+			const uploadPath = path.join(__dirname, '..', '..', '..', 'uploads');
+			const oldFilePath = student.image ? path.join(uploadPath, student.image) : null;
+
+			if (oldFilePath && await this.fileService.exist(oldFilePath)) {
+				await this.fileService.delete(oldFilePath);
 			}
+
 			imageUrl = await this.fileService.create(image);
 		}
 
