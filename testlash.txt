@@ -1,0 +1,15 @@
+ADMIN:
+    create admin:
+
+curl -X 'POST' \
+  'http://localhost:3000/api/v1/admin' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhiZDYzMThjLTFjMzMtNDM0NC1hZDM2LTc0MzljZWUwYjk1YyIsImlzQWN0aXZlIjp0cnVlLCJyb2xlIjoiU1VQRVJBRE1JTiIsImlhdCI6MTc1NzgyMTQyOSwiZXhwIjoxNzU3OTA3ODI5fQ.pN6Ch5eiG9-jMHoVzB4dFo2Sr8JbVzKlJ2tPy8bqTfI' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'username=Ogabek' \
+  -F 'password=Ogabek123!' \
+  -F 'email=Ogabek@gmail.com' \
+  -F 'phone=+998944106878' \
+  -F 'image=@90bcf4e3-6609-4c0d-b9f1-fbd963cf8b75.png;type=image/png'
+
+

@@ -60,7 +60,7 @@ export class AdminService
 
   async createAdmin(creteAdminDto: CreateAdminDto, file: Express.Multer.File) {
     const imageUrl = await this.fileService.create(file);
-    const { username, password, email } = creteAdminDto;
+    const { username, password, email,phone } = creteAdminDto;
     const existsUsername = await this.adminRepo.findOne({
       where: { username },
     });
@@ -70,13 +70,23 @@ export class AdminService
     const existsEmail = await this.adminRepo.findOne({
       where: { email },
     });
-    if (existsUsername) {
+    
+    if (existsEmail) {
       throw new ConflictException('Email already exists');
+    }
+    const existsPhone = await this.adminRepo.findOne({
+      where: { phone },
+    });
+    
+    if (existsPhone) {
+      throw new ConflictException('Phone number already exists');
     }
     const hashedPassword = await this.crypto.encrypt(password);
     const newAdmin = this.adminRepo.create({
       username,
       hashed_password: hashedPassword,
+      email,
+      phone,
       image_url: imageUrl,
     });
     await this.adminRepo.save(newAdmin);
