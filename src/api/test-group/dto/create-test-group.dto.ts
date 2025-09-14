@@ -5,6 +5,7 @@ import {
   IsString,
   IsDateString,
   IsDate,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateTestGroupDto {
