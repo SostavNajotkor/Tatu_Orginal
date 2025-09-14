@@ -6,11 +6,10 @@ import { TestGroup } from 'src/core/entity/test-group.entity';
 import { Subject } from 'src/core/entity/subject.entity';
 import { Question } from 'src/core/entity/question.entity';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([TestGroup, Subject, Question])],
   controllers: [TestGroupController],
   providers: [TestGroupService],
   exports: [TestGroupService],
 })
-export class TestGroupModule { }
+export class TestGroupModule {}

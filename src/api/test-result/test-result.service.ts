@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TestResult } from 'src/core/entity/test-result.entity';
@@ -21,16 +25,26 @@ export class TestResultService {
   ) {}
 
   async create(dto: CreateTestResultDto): Promise<ISuccess> {
-    const student = await this.studentRepo.findOne({ where: { id: dto.studentId } });
+    const student = await this.studentRepo.findOne({
+      where: { id: dto.studentId },
+    });
     if (!student) throw new NotFoundException('Student not found');
 
-    const testGroup = await this.testGroupRepo.findOne({ where: { id: dto.testGroupId } });
+    const testGroup = await this.testGroupRepo.findOne({
+      where: { id: dto.testGroupId },
+    });
     if (!testGroup) throw new NotFoundException('TestGroup not found');
 
     const exists = await this.testResultRepo.findOne({
-      where: { studentId: { id: dto.studentId }, testGroupId: { id: dto.testGroupId } },
+      where: {
+        studentId: { id: dto.studentId },
+        testGroupId: { id: dto.testGroupId },
+      },
     });
-    if (exists) throw new ConflictException('Result for this student and test group already exists');
+    if (exists)
+      throw new ConflictException(
+        'Result for this student and test group already exists',
+      );
 
     const testResult = this.testResultRepo.create({
       studentId: student,
@@ -62,13 +76,17 @@ export class TestResultService {
     if (!testResult) throw new NotFoundException('TestResult not found');
 
     if (dto.studentId) {
-      const student = await this.studentRepo.findOne({ where: { id: dto.studentId } });
+      const student = await this.studentRepo.findOne({
+        where: { id: dto.studentId },
+      });
       if (!student) throw new NotFoundException('Student not found');
       testResult.studentId = student;
     }
 
     if (dto.testGroupId) {
-      const testGroup = await this.testGroupRepo.findOne({ where: { id: dto.testGroupId } });
+      const testGroup = await this.testGroupRepo.findOne({
+        where: { id: dto.testGroupId },
+      });
       if (!testGroup) throw new NotFoundException('TestGroup not found');
       testResult.testGroupId = testGroup;
     }

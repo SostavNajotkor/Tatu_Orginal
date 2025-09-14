@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStaffRoleDto } from './dto/create-staff-role.dto';
@@ -6,6 +6,7 @@ import { UpdateStaffRoleDto } from './dto/update-staff-role.dto';
 import { StaffRole } from 'src/core/entity/staff-role.entity';
 import { Staff } from 'src/core/entity/staff.entity';
 import { Role } from 'src/core/entity/role.entity';
+import { ISuccess } from 'src/infrastructure/response/success.interface';
 
 @Injectable()
 export class StaffRoleService {
@@ -20,17 +21,17 @@ export class StaffRoleService {
     private readonly roleRepo: Repository<Role>,
   ) {}
 
-  async create(createStaffRoleDto: CreateStaffRoleDto) {
+  async create(createStaffRoleDto: CreateStaffRoleDto): Promise<ISuccess> {
     const { staffId, roleId } = createStaffRoleDto;
 
     const staff = await this.staffRepo.findOne({ where: { id: staffId } });
     if (!staff) {
-      throw new NotFoundException(`Staff with id ${staffId} not found`);
+      throw new NotFoundException(`staff with id ${staffId} not found`);
     }
 
     const role = await this.roleRepo.findOne({ where: { id: roleId } });
     if (!role) {
-      throw new NotFoundException(`Role with id ${roleId} not found`);
+      throw new NotFoundException(`role with id ${roleId} not found`);
     }
 
     const staffRole = this.staffRoleRepo.create({
@@ -38,32 +39,48 @@ export class StaffRoleService {
       roleId: role,
     });
 
-    return await this.staffRoleRepo.save(staffRole);
+    const saved = await this.staffRoleRepo.save(staffRole);
+
+    return {
+      statusCode: HttpStatus.CREATED,
+      message: 'success',
+      data: saved,
+    };
   }
 
-  async findAll() {
-    return await this.staffRoleRepo.find({
+  async findAll(): Promise<ISuccess> {
+    const data = await this.staffRoleRepo.find({
       relations: ['staffId', 'roleId'],
     });
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data,
+    };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<ISuccess> {
     const staffRole = await this.staffRoleRepo.findOne({
       where: { id },
       relations: ['staffId', 'roleId'],
     });
 
     if (!staffRole) {
-      throw new NotFoundException(`StaffRole with id ${id} not found`);
+      throw new NotFoundException(`staff role with id ${id} not found`);
     }
 
-    return staffRole;
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: staffRole,
+    };
   }
 
-  async update(id: string, updateStaffRoleDto: UpdateStaffRoleDto) {
+  async update(id: string, updateStaffRoleDto: UpdateStaffRoleDto): Promise<ISuccess> {
     const staffRole = await this.staffRoleRepo.findOne({ where: { id } });
     if (!staffRole) {
-      throw new NotFoundException(`StaffRole with id ${id} not found`);
+      throw new NotFoundException(`staff role with id ${id} not found`);
     }
 
     if (updateStaffRoleDto.staffId) {
@@ -72,7 +89,7 @@ export class StaffRoleService {
       });
       if (!staff) {
         throw new NotFoundException(
-          `Staff with id ${updateStaffRoleDto.staffId} not found`,
+          `staff with id ${updateStaffRoleDto.staffId} not found`,
         );
       }
       staffRole.staffId = staff;
@@ -84,21 +101,33 @@ export class StaffRoleService {
       });
       if (!role) {
         throw new NotFoundException(
-          `Role with id ${updateStaffRoleDto.roleId} not found`,
+          `role with id ${updateStaffRoleDto.roleId} not found`,
         );
       }
       staffRole.roleId = role;
     }
 
-    return await this.staffRoleRepo.save(staffRole);
+    const updated = await this.staffRoleRepo.save(staffRole);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: updated,
+    };
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<ISuccess> {
     const staffRole = await this.staffRoleRepo.findOne({ where: { id } });
     if (!staffRole) {
-      throw new NotFoundException(`StaffRole with id ${id} not found`);
+      throw new NotFoundException(`staff role with id ${id} not found`);
     }
 
-    return await this.staffRoleRepo.remove(staffRole);
+    await this.staffRoleRepo.remove(staffRole);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: {},
+    };
   }
 }

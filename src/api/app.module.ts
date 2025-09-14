@@ -46,7 +46,7 @@ import { StaffModule } from './staff/staff.module';
     StaffGroupModule,
     StaffRoleModule,
     RoleModule,
-    StaffModule
+    StaffModule,
   ],
 })
 export class AppModule {}

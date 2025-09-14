@@ -27,8 +27,6 @@ import { RolesGuard } from 'src/common/guard/role.guard';
 import { AccessRoles } from 'src/common/decorator/roles.decorator';
 import { Roles } from 'src/common/enum';
 
-
-
 @ApiTags('Staff Api')
 @Controller('staff')
 @UseGuards(AuthGuard, RolesGuard)
@@ -68,7 +66,11 @@ export class StaffController {
   @ApiOkResponse({ description: 'Staff updated successfully' })
   @ApiNotFoundResponse({ description: 'Staff not found' })
   @ApiForbiddenResponse({ description: 'Access denied' })
-  update(@Param('id') id: string, @Body() dto: UpdateStaffDto, @Req() req: any) {
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateStaffDto,
+    @Req() req: any,
+  ) {
     return this.staffService.update(id, dto, req.user);
   }
 

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStaffSubjectDto } from './dto/create-staff-subject.dto';
@@ -24,26 +28,30 @@ export class StaffSubjectService {
     const staff = await this.staffRepo.findOne({ where: { id: dto.staffId } });
     if (!staff) throw new NotFoundException('Staff not found');
 
-    const subject = await this.subjectRepo.findOne({ where: { id: dto.subjectId } });
+    const subject = await this.subjectRepo.findOne({
+      where: { id: dto.subjectId },
+    });
     if (!subject) throw new NotFoundException('Subject not found');
 
     const exists = await this.staffSubjectRepo.findOne({
       where: { staffId: { id: dto.staffId }, subjectId: { id: dto.subjectId } },
     });
-    if (exists) throw new ConflictException('This subject already assigned to staff');
+    if (exists)
+      throw new ConflictException('This subject already assigned to staff');
 
-    const subjectsstaff = this.staffSubjectRepo.create({ staffId:staff, subjectId:subject });
+    const subjectsstaff = this.staffSubjectRepo.create({
+      staffId: staff,
+      subjectId: subject,
+    });
     const saved = await this.staffSubjectRepo.save(subjectsstaff);
-    return successRes( saved);
+    return successRes(saved);
   }
 
-
-  
   async findAll(): Promise<ISuccess> {
     const data = await this.staffSubjectRepo.find({
       relations: ['staf', 'subject'],
     });
-    return successRes( data);
+    return successRes(data);
   }
 
   async findOne(id: string): Promise<ISuccess> {
@@ -52,27 +60,33 @@ export class StaffSubjectService {
       relations: ['staff', 'subject'],
     });
     if (!subjectsstaff) throw new NotFoundException('StaffSubject not found');
-    return successRes( subjectsstaff);
+    return successRes(subjectsstaff);
   }
 
   async update(id: string, dto: UpdateStaffSubjectDto): Promise<ISuccess> {
-    const subjectsstaff = await this.staffSubjectRepo.findOne({ where: { id } });
+    const subjectsstaff = await this.staffSubjectRepo.findOne({
+      where: { id },
+    });
     if (!subjectsstaff) throw new NotFoundException('StaffSubject not found');
 
     if (dto.staffId) {
-      const staff = await this.staffRepo.findOne({ where: { id: dto.staffId } });
+      const staff = await this.staffRepo.findOne({
+        where: { id: dto.staffId },
+      });
       if (!staff) throw new NotFoundException('Staff not found');
       subjectsstaff.staffId = staff;
     }
 
     if (dto.subjectId) {
-      const subject = await this.subjectRepo.findOne({ where: { id: dto.subjectId } });
+      const subject = await this.subjectRepo.findOne({
+        where: { id: dto.subjectId },
+      });
       if (!subject) throw new NotFoundException('Subject not found');
       subjectsstaff.subjectId = subject;
     }
 
     const updated = await this.staffSubjectRepo.save(subjectsstaff);
-    return successRes( updated);
+    return successRes(updated);
   }
 
   async remove(id: string): Promise<ISuccess> {
