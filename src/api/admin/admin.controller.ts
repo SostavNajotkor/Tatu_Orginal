@@ -47,7 +47,7 @@ export class AdminController {
   constructor(
     private readonly adminService: AdminService,
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: 'Create admin',
@@ -64,6 +64,16 @@ export class AdminController {
         password: {
           type: 'string',
           format: 'string',
+        },
+        email: {
+          type: 'string',
+          format: 'string'
+
+        },
+        phone: {
+          type: 'string',
+          format: 'string'
+
         },
         image: {
           type: 'string',
@@ -171,6 +181,9 @@ export class AdminController {
       },
     },
   })
+
+
+
   @Post('token')
   newToken(@CookieGetter('adminToken') token: string) {
     return this.authService.newToken(this.adminService.getRepository, token);
@@ -202,6 +215,10 @@ export class AdminController {
       },
     },
   })
+
+
+
+
   @Post('signout')
   signOut(
     @CookieGetter('adminToken') token: string,
@@ -245,6 +262,11 @@ export class AdminController {
       },
     },
   })
+
+
+
+
+
   @UseGuards(AuthGuard, RolesGuard)
   @AccessRoles(Roles.SUPERADMIN)
   @Get()
@@ -262,6 +284,8 @@ export class AdminController {
         username: true,
         is_active: true,
         image_url: true,
+        phone:true,
+        email:true
       },
       skip: page,
       take: limit,
@@ -304,12 +328,15 @@ export class AdminController {
   @ApiBearerAuth()
   findAll() {
     return this.adminService.findAll({
-      where: { role: Roles.ADMIN, is_deleted: false },
+      where: { role: Roles.ADMIN },
       order: { createdAt: 'DESC' },
       select: {
         id: true,
         username: true,
+        phone: true,
+        email: true,
         is_active: true,
+
       },
     });
   }
