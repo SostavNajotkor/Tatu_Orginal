@@ -16,14 +16,13 @@ export class Subject extends BaseEntity {
   @Column({ type: 'varchar', unique: true })
   title: string;
 
-  @Column({ type: 'text' })
-  image: string;
+  @Column({ type: 'varchar' })
+  imageUrl: string;
 
   @OneToMany(() => TestGroup, (tg) => tg.subject)
   TestGroups: TestGroup[];
 
-  @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.subjectId)
-  ssSubject: StaffSubject[];
-
-  // fazlidin aka ulab bolib ochib qoyin
+  
+  @OneToMany(() => StaffSubject, (sb_sf) => sb_sf.subjectId)
+  staffSubjectId: StaffSubject[];
 }

@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { StaffGroup } from './staff-group.entity';
 import { StaffRole } from './staff-role.entity';
 import { StaffSubject } from './staff-subject.entity';
@@ -36,6 +42,7 @@ export class Staff extends BaseEntity {
   @OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
   staffRole: StaffRole[];
 
-  @OneToMany(() => StaffSubject, (staffSubject) => staffSubject.staffId)
-  staffSubject: StaffSubject[];
+
+  @OneToMany(() => StaffSubject, (staf_sb) => staf_sb.subjectId)
+  staffSubjectId: StaffSubject[];
 }

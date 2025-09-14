@@ -10,16 +10,16 @@ import {
 export class CreateTestGroupDto {
   @ApiProperty({
     type: String,
-    description: 'Subject id beriladi',
-    example: 'uu-subject-id',
+    description: 'Fan (subject) UUID ID raqami',
+    example: 'a3f5c0b2-1d4e-4f9d-9b8e-6a2c7e123456',
   })
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   subjectId: string;
 
   @ApiProperty({
     type: Number,
-    description: 'Testlar soni beriladi',
+    description: 'Testlar soni',
     example: 30,
   })
   @IsNumber()

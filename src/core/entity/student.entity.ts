@@ -4,6 +4,7 @@ import { TestResult } from './test-result.entity';
 import { BaseEntity } from 'src/common/database/base.entity';
 import { Roles } from 'src/common/enum';
 
+
 @Entity('student')
 export class Student extends BaseEntity {
   @Column({ type: 'varchar' })
@@ -24,12 +25,14 @@ export class Student extends BaseEntity {
   @Column({ type: 'varchar' })
   hashedPassword: string;
 
+
   @Column({ type: 'enum', enum: Roles, default: Roles.STUDENT })
   role: Roles;
 
   @ManyToOne(() => Group, (group) => group.student)
   @JoinColumn({ name: 'groupId' })
   group: Group;
+
 
   @OneToOne(() => TestResult, (testResult) => testResult.studentId, {
     cascade: true,

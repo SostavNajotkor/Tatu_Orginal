@@ -1,22 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateStaffGroupDto {
   @ApiProperty({
-    type: 'number',
-    description: 'ID of the staff',
-    example: 3,
+    type: String,
+    description: 'Xodimning UUID ID raqami',
+    example: 'a3f5c0b2-1d4e-4f9d-9b8e-6a2c7e123456',
   })
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  staffId: number;
+  staffId: string;
 
   @ApiProperty({
-    type: 'number',
-    description: 'ID of the group',
-    example: 1,
+    type: String,
+    description: 'Guruhning UUID ID raqami',
+    example: 'b7e8d9f0-2c3d-4a1b-8f6e-9c0d1b234567',
   })
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  groupId: number;
+  groupId: string;
 }

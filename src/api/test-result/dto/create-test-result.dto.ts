@@ -1,28 +1,28 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
 
 export class CreateTestResultDto {
   @ApiProperty({
-    type: 'number',
-    description: 'ID of the student who took the test',
-    example: 12,
+    type: String,
+    description: 'Testni yechgan talabaning UUID ID raqami',
+    example: 'a3f5c0b2-1d4e-4f9d-9b8e-6a2c7e123456',
   })
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  studentId: number;
+  studentId: string;
 
   @ApiProperty({
-    type: 'number',
-    description: 'ID of the test group',
-    example: 5,
+    type: String,
+    description: 'Test guruhi (TestGroup) UUID ID raqami',
+    example: 'b7e8d9f0-2c3d-4a1b-8f6e-9c0d1b234567',
   })
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  testGroupId: number;
+  testGroupId: string;
 
   @ApiProperty({
-    type: 'number',
-    description: 'Number of correct answers given by the student',
+    type: Number,
+    description: 'Talaba tomonidan berilgan to‘g‘ri javoblar soni',
     example: 18,
   })
   @IsNumber()
