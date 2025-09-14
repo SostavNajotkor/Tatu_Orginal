@@ -16,7 +16,8 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   firstName: string;
-
+  
+  
   @ApiProperty({
     type: String,
     description: 'xodimning familiyasi',
@@ -25,7 +26,8 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
-
+  
+  
   @ApiProperty({
     type: String,
     description: 'xodimning profil rasmi Urli',
@@ -34,7 +36,8 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   image: string;
-
+  
+  
   @ApiProperty({
     type: String,
     description: 'xodimning telefon raqami',
@@ -44,7 +47,8 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   phoneNumber: string;
-
+  
+  
   @ApiProperty({
     type: String,
     description: 'xodimning loginni',
@@ -53,7 +57,8 @@ export class CreateStaffDto {
   @IsString()
   @IsNotEmpty()
   login: string;
-
+  
+  
   @ApiProperty({
     type: String,
     description: 'xodimning paroli',
@@ -64,6 +69,7 @@ export class CreateStaffDto {
   @IsNotEmpty()
   password: string;
 
+  
   @ApiProperty({
     type: String,
     description: 'xodimning elektron pochtasi',
@@ -72,6 +78,7 @@ export class CreateStaffDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
 
   @ApiProperty({
     type: String,

@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsDateString,
+  IsDate,
+} from 'class-validator';
 
 export class CreateTestGroupDto {
   @ApiProperty({
@@ -22,7 +28,7 @@ export class CreateTestGroupDto {
 
   @ApiProperty({
     type: String,
-    description: 'Test uchun beriladigan vaqt (mm:ss formatda)',
+    description: 'test vaqti beriladi masalan: 30:00',
     example: '30:00',
   })
   @IsString()

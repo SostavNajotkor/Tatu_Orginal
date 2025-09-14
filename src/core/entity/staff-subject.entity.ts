@@ -3,6 +3,7 @@ import { Staff } from './staff.entity';
 import { Subject } from './subject.entity';
 import { BaseEntity } from 'src/common/database/base.entity';
 
+
 @Entity('staff-subject')
 export class StaffSubject extends BaseEntity {
   @ManyToOne(() => Staff, (staff) => staff.staffSubjectId, {
@@ -10,6 +11,7 @@ export class StaffSubject extends BaseEntity {
     onUpdate: 'CASCADE',
   })
   staffId: Staff;
+
 
   @ManyToOne(() => Subject, (sub) => sub.staffSubjectId, {
     onDelete: 'CASCADE',

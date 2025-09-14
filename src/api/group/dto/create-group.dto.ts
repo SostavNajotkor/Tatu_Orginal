@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsDateString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateGroupDto {
   @ApiProperty({
-    type: String,
-    description: 'Guruh nomi',
+    type: 'string',
+    description: 'name of the group',
     example: 'Frontend-2025',
   })
   @IsString()
@@ -12,12 +13,13 @@ export class CreateGroupDto {
   name: string;
 
   @ApiProperty({
-    type: String,
+    type: 'string',
     format: 'date',
-    description: 'Guruh boshlanish sanasi (YYYY-MM-DD formatida)',
+    description: 'start year of the group',
     example: '2025-09-01',
   })
-  @IsDateString()
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
   @IsNotEmpty()
-  startYear: string;
+  startYear: Date;
 }

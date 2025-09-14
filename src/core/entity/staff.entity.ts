@@ -42,6 +42,7 @@ export class Staff extends BaseEntity {
   @OneToMany(() => StaffRole, (staffRole) => staffRole.staffId)
   staffRole: StaffRole[];
 
+
   @OneToMany(() => StaffSubject, (staf_sb) => staf_sb.subjectId)
   staffSubjectId: StaffSubject[];
 }
